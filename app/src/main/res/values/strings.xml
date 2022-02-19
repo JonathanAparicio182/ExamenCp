@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ExamenCoppel</string>
+    <string name="app_name">SuperHeroes</string>
+    <string name="app_author">by Jonathan A. Aparicio Osorio</string>
 </resources>
