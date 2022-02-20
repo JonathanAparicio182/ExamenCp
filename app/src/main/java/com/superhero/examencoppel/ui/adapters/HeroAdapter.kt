@@ -13,8 +13,9 @@ class HeroAdapter(val listener: (SuperHero) -> Unit): ListAdapter<SuperHero,Recy
     inner class HeroViewHolder(val binding: ItemHeroeBinding):
         RecyclerView.ViewHolder(binding.root){
         fun bind(item: SuperHero, listener: (SuperHero) -> Unit) = with(itemView){
-            Picasso.get().load(item.img).into(binding.ivHero)
-            binding.tvNameHero.text = item.nombre
+            val url = "${item.img}.${item.ext}".replace("http","https")
+            Picasso.get().load(url).into(binding.ivHero)
+            binding.tvNameHero.text = item.name
             binding.container.setOnClickListener { listener(item) }
         }
     }
@@ -36,7 +37,7 @@ class HeroAdapter(val listener: (SuperHero) -> Unit): ListAdapter<SuperHero,Recy
 }
 private object DiffUtilCallback: DiffUtil.ItemCallback<SuperHero>(){
     override fun areItemsTheSame(oldItem: SuperHero, newItem: SuperHero): Boolean {
-        return oldItem.nombre == newItem.nombre
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: SuperHero, newItem: SuperHero): Boolean {
