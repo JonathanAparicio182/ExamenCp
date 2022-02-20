@@ -21,6 +21,22 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.superhero.examencoppel.ui.views.DetailFragment"
-        android:label="Detalle de heroes"
-        tools:layout="@layout/fragment_detail" />
+        android:label="Detalle del heroe"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="desc"
+            app:argType="string" />
+        <argument
+            android:name="img"
+            app:argType="string" />
+        <argument
+            android:name="comics"
+            app:argType="string[]" />
+    </fragment>
 </navigation>

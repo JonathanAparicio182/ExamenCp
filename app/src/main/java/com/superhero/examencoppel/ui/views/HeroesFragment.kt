@@ -33,7 +33,13 @@ class HeroesFragment : Fragment() {
     }
     private fun setupRecyclerView(){
         recyclerAdapter = HeroAdapter{
-            findNavController().navigate(R.id.action_heroesFragment_to_detailFragment)
+            findNavController().navigate(HeroesFragmentDirections.actionHeroesFragmentToDetailFragment(
+                it.id,
+                it.name,
+                it.desc,
+                "${it.img}.${it.ext}".replace("http","https"),
+                it.comics.toTypedArray()
+            ))
         }
         with(binding.rvHeroes){
             layoutManager = LinearLayoutManager(context)
