@@ -23,7 +23,21 @@ class HeroesVM @Inject constructor(private val getHeroUseCase: GetHeroUseCase): 
             isLoading.postValue(false)
         }
     }
-    fun loadMore(currentList: MutableList<SuperHero>){
+    fun loadPrev(){
+        if (offset>0) {
+            viewModelScope.launch {
+                isLoading.postValue(true)
+                offset -= 20
+                val result = getHeroUseCase(offset)
+                val prevList: MutableList<SuperHero> = mutableListOf()
+                prevList.addAll(result)
+                heroes.value?.forEach { prevList.add(it) }
+                heroes.postValue(prevList)
+                isLoading.postValue(false)
+            }
+        }
+    }
+    fun loadNext(currentList: MutableList<SuperHero>){
         viewModelScope.launch {
             isLoading.postValue(true)
             offset += 20

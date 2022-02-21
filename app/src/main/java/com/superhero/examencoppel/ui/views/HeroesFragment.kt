@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.superhero.examencoppel.R
 import com.superhero.examencoppel.databinding.FragmentHeroesBinding
-import com.superhero.examencoppel.domain.SuperHero
 import com.superhero.examencoppel.ui.adapters.HeroAdapter
 import com.superhero.examencoppel.ui.viewmodels.HeroesVM
 
@@ -62,12 +61,16 @@ class HeroesFragment : Fragment() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
-                    currentItems = manager.childCount
+                    currentItems = manager.childCount+2
                     totalItems = manager.itemCount
                     scrollOutItems = manager.findFirstVisibleItemPosition()
-                    if (isScrolling && (currentItems + scrollOutItems == totalItems)){
+                    if (isScrolling && (currentItems + scrollOutItems >= totalItems)){
                         isScrolling = false
-                        viewModel.loadMore(recyclerAdapter.currentList.toMutableList())
+                        viewModel.loadNext(recyclerAdapter.currentList.toMutableList())
+                    }
+                    else if (isScrolling && scrollOutItems <= 2){
+                        isScrolling = false
+                        viewModel.loadPrev()
                     }
                 }
             })
